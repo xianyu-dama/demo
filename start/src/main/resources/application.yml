@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: xianyu-demo
+  profiles:
+    active: @activatedProperties@
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  main:
+    #不允许循环依赖，先google解决，如果是业务循环依赖，看看中间是否能加一层，如果循环依赖了@SpyBean会报错
+    allow-circular-references: false
+    lazy-initialization: false
+    allow-bean-definition-overriding: false
+    banner-mode: off
+  docker:
+    compose:
+      enabled: false
+server:
+  port: 8090
+logging:
+  config: classpath:logback.xml
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+redisson:
+  host: ${spring.data.redis.host}
+  port: ${spring.data.redis.port}
+  netty-threads: 1
+  threads: 1
+  connection-minimum-idle-size: 1
+  connection-pool-size: 1
+jimmer:
+  dialect: org.babyfish.jimmer.sql.dialect.PostgresDialect
+  show-sql: true
+  pretty-sql: true
+  database-validation-mode: warning
+  default-batch-size: 1000
+  default-list-batch-size: 1000
+  # ALLOWD: 允许子对象迁移，并尽可能采用数据库本身的UPSERT能力
+  # NOT_ALLOWED: 不允许子对象迁移，以QueryReason.TARGET_NOT_TRANSFERABLE为由发起而外查询加以验证。 如果发生了子对象迁移，抛出异常
+  # AUTO(默认)：当前配置无效，参考优先级更低的配置
+  target-transferable: true
+  # 脱钩delete执行逻辑删除
+  dissociation-logical-delete-enabled: true
+domain:
+  event:
+    sender:
+      type: event-bus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,modulith
+  endpoint:
+    modulith:
+      enabled: true

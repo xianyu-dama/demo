@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianyu.order.context.order.infr.persistence.mapper.OrderQueryMapper">
+
+    <select id="ping" resultType="int">
+        SELECT 1
+    </select>
+
+    <select id="currentSchema" resultType="string">
+        SELECT current_schema()
+    </select>
+
+    <select id="select" resultType="java.lang.Integer">
+        select 1
+    </select>
+</mapper>
