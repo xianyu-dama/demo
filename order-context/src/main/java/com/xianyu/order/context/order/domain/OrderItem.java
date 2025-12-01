@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Jacksonized
 @SuperBuilder
 @Setter(AccessLevel.PACKAGE)
-public class OrderDetail extends BaseEntity<Long> {
+public class OrderItem extends BaseEntity<Long> {
 
     private long id;
 

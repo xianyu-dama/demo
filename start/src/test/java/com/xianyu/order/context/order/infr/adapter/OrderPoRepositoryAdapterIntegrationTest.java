@@ -152,7 +152,7 @@ class OrderPoRepositoryAdapterIntegrationTest extends BaseIntegrationTest {
         assertThat(order.getShouldPay()).isEqualTo(new BigDecimal("199.99"));
 
         // 验证订单详情
-        assertThat(order.getOrderDetails()).hasSize(1);
+        assertThat(order.getOrderItems()).hasSize(1);
     }
 
     @Test

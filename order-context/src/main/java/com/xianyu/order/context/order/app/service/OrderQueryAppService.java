@@ -32,7 +32,7 @@ public class OrderQueryAppService implements OrderQueryApiService {
     public OrderDetailView detail(long orderId) {
         Order order = orderRepository.getInCache(orderId).orElseThrow();
         OrderDetailViewContext context = OrderDetailViewContext.builder()
-                .sku(() -> skuRepository.list(order.getOrderDetails().getProductIds()))
+                .sku(() -> skuRepository.list(order.getOrderItems().getProductIds()))
                 .build();
         return OrderDetailView.builder().order(order).orderDetailViewContext(context).build();
     }

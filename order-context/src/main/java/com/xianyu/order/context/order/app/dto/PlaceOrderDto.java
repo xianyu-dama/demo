@@ -21,10 +21,10 @@ public record PlaceOrderDto(String currency, BigDecimal exchangeRate, BigDecimal
                             BigDecimal shipInsuranceFee,
                             Boolean isFirstOrder,
                             @NotEmpty
-                            List<PlaceOrderDetailDto> details,
+                            List<PlaceOrderItemDto> items,
                             @NotNull Long userId) {
 
     public boolean isOnlyOnePerSku(int maxSkuCount) {
-        return details().stream().map(PlaceOrderDetailDto::getQuantity).allMatch(Predicate.isEqual(maxSkuCount));
+        return items().stream().map(PlaceOrderItemDto::getQuantity).allMatch(Predicate.isEqual(maxSkuCount));
     }
 }

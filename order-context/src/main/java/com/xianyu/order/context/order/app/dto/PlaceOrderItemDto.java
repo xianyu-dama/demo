@@ -18,7 +18,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class PlaceOrderDetailDto {
+public class PlaceOrderItemDto {
 
     @NotNull(message = "productId cannot be empty")
     private final Integer productId;

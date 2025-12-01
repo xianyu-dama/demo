@@ -6,5 +6,5 @@ import java.util.List;
 
 public record PlaceDropshippingOrderDto(
     @NotBlank(message = "orderId cannot be blank") String orderId,
-    @NotEmpty(message = "order items cannot be empty") List<PlaceDropshippingOrderDetailDto> details) {
+    @NotEmpty(message = "order items cannot be empty") List<PlaceDropshippingOrderItemDto> details) {
 }

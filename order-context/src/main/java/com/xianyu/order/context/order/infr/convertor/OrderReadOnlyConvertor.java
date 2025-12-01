@@ -1,7 +1,7 @@
 package com.xianyu.order.context.order.infr.convertor;
 
 import com.xianyu.order.context.order.domain.Order;
-import com.xianyu.order.context.order.domain.OrderDetail;
+import com.xianyu.order.context.order.domain.OrderItem;
 import com.xianyu.order.context.order.domain.value.Extension;
 import com.xianyu.order.context.order.domain.value.OrderAddress;
 import com.xianyu.order.context.sdk.order.dto.rsp.ExtensionDto;
@@ -28,7 +28,7 @@ public class OrderReadOnlyConvertor {
                 .shouldPay(order.getShouldPay())
                 .actualPay(order.getActualPay())
                 .orderAddress(toOrderAddressDto(order.getOrderAddress()))
-                .orderDetails(order.getOrderDetails().toStream().map(this::toOrderDetailDto).toList())
+                .orderDetails(order.getOrderItems().toStream().map(this::toOrderDetailDto).toList())
                 .extension(toExtensionDto(order.getExtension()))
                 .userId(order.getUserId())
                 .cancelFlag(order.isCanceled())
@@ -56,7 +56,7 @@ public class OrderReadOnlyConvertor {
                 .build();
     }
 
-    private OrderDetailDto toOrderDetailDto(OrderDetail d) {
+    private OrderDetailDto toOrderDetailDto(OrderItem d) {
         return OrderDetailDto.builder()
                 .id(d.getId())
                 .productId(d.getProductId())

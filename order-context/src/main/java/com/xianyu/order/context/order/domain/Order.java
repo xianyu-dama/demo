@@ -53,7 +53,7 @@ public class Order extends BaseAggregation<Order, Long> {
     private BigDecimal actualPay;
     private OrderAddress orderAddress;
     @Builder.Default
-    private OrderDetails orderDetails = new OrderDetails(new ArrayList<>());
+    private OrderItems orderItems = new OrderItems(new ArrayList<>());
     /**
      * 扩展字段
      */
@@ -67,7 +67,7 @@ public class Order extends BaseAggregation<Order, Long> {
     }
 
     public List<Integer> getProductIds() {
-        return orderDetails.getProductIds();
+        return orderItems.getProductIds();
     }
 
     public void relocateTo(OrderAddress newOrderAddress) {
@@ -81,7 +81,7 @@ public class Order extends BaseAggregation<Order, Long> {
         if (!skuStockLock.locked()) {
             throw new BizException("库存不足");
         }
-        orderDetails.forEach(orderDetail -> orderDetail.updateLocked(true));
+        orderItems.forEach(orderDetail -> orderDetail.updateLocked(true));
         extension = Optional.ofNullable(extension).orElse(Extension.builder().build()).toBuilder().lockId(skuStockLock.stockLockId()).build();
     }
 
@@ -97,7 +97,7 @@ public class Order extends BaseAggregation<Order, Long> {
      */
     public void cancel() {
         orderStatus = orderStatus.cancel();
-        orderDetails.forEach(OrderDetail::cancel);
+        orderItems.forEach(OrderItem::cancel);
         addEvent(OrderCanceledEvent.create(id));
     }
 
@@ -114,7 +114,7 @@ public class Order extends BaseAggregation<Order, Long> {
      */
     void place() {
         orderStatus = OrderStatus.WAIT_PAY;
-        orderDetails.forEach(OrderDetail::place);
+        orderItems.forEach(OrderItem::place);
         addEvent(OrderPlacedEvent.create(id));
     }
 
@@ -135,9 +135,9 @@ public class Order extends BaseAggregation<Order, Long> {
         return false;
     }
 
-    void addOrderDetail(@NonNull OrderDetail orderDetail) {
-        orderDetails.add(orderDetail);
-        orderDetails.validate();
+    void add(@NonNull OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItems.validate();
     }
 
     @Override
@@ -146,7 +146,7 @@ public class Order extends BaseAggregation<Order, Long> {
     }
 
     boolean isSkuQuantityValidate(int placeOrderMaxSkuQuantity) {
-        return orderDetails.toStream()
+        return orderItems.toStream()
                 .allMatch(od -> od.getQuantity() <= placeOrderMaxSkuQuantity);
     }
 

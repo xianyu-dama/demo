@@ -2,8 +2,8 @@ package com.xianyu.order.context.order.infr.convertor;
 
 import com.xianyu.inventory.context.sdk.inventory.dto.LockStockDto;
 import com.xianyu.order.context.order.domain.Order;
-import com.xianyu.order.context.order.domain.OrderDetail;
-import com.xianyu.order.context.order.domain.OrderDetails;
+import com.xianyu.order.context.order.domain.OrderItem;
+import com.xianyu.order.context.order.domain.OrderItems;
 import com.xianyu.order.context.order.domain.value.OrderAddress;
 import com.xianyu.order.context.order.infr.persistence.po.OrderItemPo;
 import com.xianyu.order.context.order.infr.persistence.po.OrderPo;
@@ -26,13 +26,13 @@ public class OrderConvertor {
 
     private final UserRepository userRepository;
 
-    public static OrderDetails toOrderDetails(List<OrderItemPo> orderDetailPos) {
-        return new OrderDetails(orderDetailPos.stream()
+    public static OrderItems toOrderDetails(List<OrderItemPo> orderDetailPos) {
+        return new OrderItems(orderDetailPos.stream()
                 .map(OrderConvertor::toOrderDetail).toList());
     }
 
-    public static OrderDetail toOrderDetail(OrderItemPo orderDetailPo) {
-        return OrderDetail.builder()
+    public static OrderItem toOrderDetail(OrderItemPo orderDetailPo) {
+        return OrderItem.builder()
                 .id(orderDetailPo.id())
                 .productId(orderDetailPo.productId())
                 .orderStatus(orderDetailPo.orderStatus())
@@ -60,7 +60,7 @@ public class OrderConvertor {
                 .shouldPay(orderPo.shouldPay())
                 .actualPay(orderPo.actualPay())
                 .orderAddress(toOrderAddress(orderPo))
-                .orderDetails(toOrderDetails(orderPo.orderItems()))
+                .orderItems(toOrderDetails(orderPo.orderItems()))
                 .extension(orderPo.extension())
                 .userId(orderPo.userId())
                 .parcels(parcelsFactory.create(orderPo.orderId()))
@@ -73,8 +73,8 @@ public class OrderConvertor {
     }
 
     public LockStockDto toLockStockRequest(Order order) {
-        List<LockStockDto.Sku> skus = order.getOrderDetails().toStream()
-            .map(detail -> LockStockDto.Sku.of(Long.valueOf(detail.getProductId()), Long.valueOf(detail.getQuantity())))
+        List<LockStockDto.Sku> skus = order.getOrderItems().toStream()
+            .map(item -> LockStockDto.Sku.of(Long.valueOf(item.getProductId()), Long.valueOf(item.getQuantity())))
             .toList();
         return LockStockDto.builder()
             .bizId(String.valueOf(order.getOrderId()))

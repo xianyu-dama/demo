@@ -69,7 +69,7 @@ public class OrderDetailView {
 
     public List<OrderDetail> getOrderDetails() {
         Map<Integer, Sku> productId2SkuInfo = orderDetailViewContext.getProductId2SkuInfo();
-        return order.getOrderDetails().toStream().map(orderDetail -> {
+        return order.getOrderItems().toStream().map(orderDetail -> {
             return OrderDetail.builder()
                     .orderStatus(orderDetail.getOrderStatus())
                     .price(orderDetail.getPrice())

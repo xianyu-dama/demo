@@ -13,8 +13,8 @@ class OrderUnitTest extends BaseUnitTest {
 
     @Test
     @DisplayName("锁库存成功：全部订单明细设置为locked，扩展写入lockId")
-    void should_lock_all_details_and_set_extension_lockId_when_locked() {
-        OrderDetail od1 = OrderDetail.builder()
+    void should_lock_all_items_and_set_extension_lockId_when_locked() {
+        OrderItem od1 = OrderItem.builder()
             .id(101)
             .productId(1)
             .orderStatus(OrderStatus.WAIT_PAY)
@@ -22,7 +22,7 @@ class OrderUnitTest extends BaseUnitTest {
             .quantity(2)
             .build();
 
-        OrderDetail od2 = OrderDetail.builder()
+        OrderItem od2 = OrderItem.builder()
             .id(102)
             .productId(2)
             .orderStatus(OrderStatus.WAIT_PAY)
@@ -33,13 +33,13 @@ class OrderUnitTest extends BaseUnitTest {
         Order order = Order.builder()
             .id(1L)
             .orderStatus(OrderStatus.WAIT_PAY)
-            .orderDetails(new OrderDetails(List.of(od1, od2)))
+            .orderItems(new OrderItems(List.of(od1, od2)))
             .extension(Extension.builder().build())
             .build();
         order.lockStock(SkuStockLock.builder().locked(true).stockLockId("LOCK123").build());
 
-        OrderDetail d1 = order.getOrderDetails().toStream().filter(d -> d.getProductId() == 1).findFirst().orElseThrow();
-        OrderDetail d2 = order.getOrderDetails().toStream().filter(d -> d.getProductId() == 2).findFirst().orElseThrow();
+        OrderItem d1 = order.getOrderItems().toStream().filter(d -> d.getProductId() == 1).findFirst().orElseThrow();
+        OrderItem d2 = order.getOrderItems().toStream().filter(d -> d.getProductId() == 2).findFirst().orElseThrow();
 
         assertThat(d1.getLocked()).isTrue();
         assertThat(d2.getLocked()).isTrue();
@@ -52,8 +52,8 @@ class OrderUnitTest extends BaseUnitTest {
         Order order = Order.builder()
             .id(1L)
             .orderStatus(OrderStatus.WAIT_PAY)
-            .orderDetails(new OrderDetails(List.of(
-                OrderDetail.builder().id(201).productId(3).orderStatus(OrderStatus.WAIT_PAY).price(BigDecimal.ONE).quantity(1).build()
+            .orderItems(new OrderItems(List.of(
+                OrderItem.builder().id(201).productId(3).orderStatus(OrderStatus.WAIT_PAY).price(BigDecimal.ONE).quantity(1).build()
             )))
             .extension(Extension.builder().build())
             .build();

@@ -17,14 +17,14 @@ public class OrderBuilder extends Order.OrderBuilder<Order, OrderBuilder> {
 
     private final Collection<OrderValidator> orderValidators;
 
-    private final List<OrderDetail> builderOrderDetails = new ArrayList<>();
+    private final List<OrderItem> builderOrderItems = new ArrayList<>();
 
     public OrderBuilder(Collection<OrderValidator> orderValidators) {
         this.orderValidators = orderValidators;
     }
 
-    public OrderBuilder addOrderDetail(@NonNull OrderDetail orderDetail) {
-        builderOrderDetails.add(orderDetail);
+    public OrderBuilder addOrderDetail(@NonNull OrderItem orderItem) {
+        builderOrderItems.add(orderItem);
         return this;
     }
 
@@ -54,7 +54,7 @@ public class OrderBuilder extends Order.OrderBuilder<Order, OrderBuilder> {
     public Order build() {
 
         Order order = new Order(this);
-        builderOrderDetails.forEach(order::addOrderDetail);
+        builderOrderItems.forEach(order::add);
 
         boolean isValidate = order.isSkuQuantityValidate(Order.PLACE_ORDER_MAX_SKU_QUANTITY);
         if (!isValidate) {

@@ -1,11 +1,11 @@
 package com.xianyu.order.context.order.app.assembler;
 
 import com.xianyu.component.id.IdGenerator;
-import com.xianyu.order.context.order.app.dto.PlaceOrderDetailDto;
 import com.xianyu.order.context.order.app.dto.PlaceOrderDto;
+import com.xianyu.order.context.order.app.dto.PlaceOrderItemDto;
 import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.OrderBuilder;
-import com.xianyu.order.context.order.domain.OrderDetail;
+import com.xianyu.order.context.order.domain.OrderItem;
 import com.xianyu.order.context.order.domain.factory.OrderFactory;
 import com.xianyu.order.context.order.domain.value.Extension;
 import com.xianyu.order.context.order.domain.value.FullAddressLine;
@@ -41,14 +41,14 @@ public class OrderAssembler {
 
         OrderBuilder orderBuilder = orderFactory.createOrderBuilder();
 
-        for (PlaceOrderDetailDto detailReq : req.details()) {
-            OrderDetail orderDetail = OrderDetail.builder()
-                .productId(detailReq.getProductId())
-                .price(detailReq.getPrice())
+        for (PlaceOrderItemDto itemReq : req.items()) {
+            OrderItem orderItem = OrderItem.builder()
+                .productId(itemReq.getProductId())
+                .price(itemReq.getPrice())
                 .id(idGenerator.id())
-                .quantity(detailReq.getQuantity())
+                .quantity(itemReq.getQuantity())
                 .build();
-            orderBuilder.addOrderDetail(orderDetail);
+            orderBuilder.addOrderDetail(orderItem);
         }
 
         return orderBuilder

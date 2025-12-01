@@ -4,8 +4,8 @@ import com.xianyu.BaseIntegrationTest;
 import com.xianyu.component.id.IdGenerator;
 import com.xianyu.component.utils.json.JsonUtils;
 import com.xianyu.order.context.order.app.assembler.OrderAssembler;
-import com.xianyu.order.context.order.app.dto.PlaceOrderDetailDto;
 import com.xianyu.order.context.order.app.dto.PlaceOrderDto;
+import com.xianyu.order.context.order.app.dto.PlaceOrderItemDto;
 import com.xianyu.order.context.order.app.service.OrderAppService;
 import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.repository.OrderRepository;
@@ -38,7 +38,7 @@ class PlaceOrderUseCaseIntegrationTest extends BaseIntegrationTest {
     private static PlaceOrderDto createPlaceOrderDto(int quantity) {
         return new PlaceOrderDto("CNY", BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE, "email",
                 "phoneNumber", "firstName", "lastName", "addressLine1", "addressLine2", "country",
-            BigDecimal.TEN, true, List.of(new PlaceOrderDetailDto(1, BigDecimal.ONE, quantity)), 1L);
+            BigDecimal.TEN, true, List.of(new PlaceOrderItemDto(1, BigDecimal.ONE, quantity)), 1L);
     }
 
     @BeforeEach

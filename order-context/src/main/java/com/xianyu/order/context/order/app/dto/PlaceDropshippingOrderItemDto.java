@@ -7,7 +7,7 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class PlaceDropshippingOrderDetailDto extends PlaceOrderDetailDto {
+public class PlaceDropshippingOrderItemDto extends PlaceOrderItemDto {
 
     @NotBlank(message = "unitPrice cannot be empty")
     String unitPrice;
@@ -18,7 +18,7 @@ public class PlaceDropshippingOrderDetailDto extends PlaceOrderDetailDto {
      * @param count
      * @param unitPrice
      */
-    public PlaceDropshippingOrderDetailDto(Integer productId, Integer quantity, Integer count, String unitPrice) {
+    public PlaceDropshippingOrderItemDto(Integer productId, Integer quantity, Integer count, String unitPrice) {
         super(productId, new BigDecimal(quantity), count);
         this.unitPrice = unitPrice;
     }

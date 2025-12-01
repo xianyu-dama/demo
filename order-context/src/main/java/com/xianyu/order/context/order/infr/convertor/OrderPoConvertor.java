@@ -36,7 +36,7 @@ public class OrderPoConvertor {
             orderDraft.setShouldPay(order.getShouldPay());
             orderDraft.setActualPay(order.getActualPay());
             orderDraft.setExtension(order.getExtension());
-            orderDraft.setOrderItems(order.getOrderDetails()
+            orderDraft.setOrderItems(order.getOrderItems()
                 .toStream().map(orderDetail ->
                     OrderItemPoDraft.$.produce(orderDetailDraft -> {
                         orderDetailDraft.setId(orderDetail.getId());

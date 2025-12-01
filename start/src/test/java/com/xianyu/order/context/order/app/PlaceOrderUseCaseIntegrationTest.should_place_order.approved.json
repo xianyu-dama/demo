@@ -19,7 +19,10 @@
     "phoneNumber": "phoneNumber",
     "country": "country"
   },
-  "orderDetails": {
+  "orderItems": {
+    "productIds": [
+      1
+    ],
     "collection": [
       {
         "version": 1,
@@ -31,9 +34,6 @@
         "quantity": 1
       }
     ],
-    "productIds": [
-      1
-    ],
     "duplicated": false
   },
   "extension": {
@@ -42,11 +42,11 @@
     "lockId": "1"
   },
   "userId": 1,
+  "cancel": false,
+  "orderId": 1,
   "productIds": [
     1
   ],
-  "cancel": false,
-  "orderId": 1,
   "shipped": false,
   "canceled": false,
   "parcels": [],

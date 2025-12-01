@@ -19,7 +19,11 @@
     "phoneNumber": "13800000000",
     "country": "CHINA"
   },
-  "orderDetails": {
+  "orderItems": {
+    "productIds": [
+      1,
+      2
+    ],
     "collection": [
       {
         "version": 1,
@@ -38,20 +42,16 @@
         "quantity": 1
       }
     ],
-    "productIds": [
-      1,
-      2
-    ],
     "duplicated": false
   },
   "extension": {},
   "userId": 1,
+  "cancel": false,
+  "orderId": 1,
   "productIds": [
     1,
     2
   ],
-  "cancel": false,
-  "orderId": 1,
   "shipped": false,
   "canceled": false,
   "parcels": [],

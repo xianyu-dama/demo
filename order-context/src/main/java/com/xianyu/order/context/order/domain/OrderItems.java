@@ -23,16 +23,16 @@ import org.jspecify.annotations.NonNull;
  * @author xian_yu_da_ma
  */
 @Slf4j
-public class OrderDetails implements Iterable<OrderDetail>, Serializable, Identified<OrderDetail, Long> {
+public class OrderItems implements Iterable<OrderItem>, Serializable, Identified<OrderItem, Long> {
 
-    private final List<OrderDetail> list;
+    private final List<OrderItem> list;
 
     /**
      * @JsonCreator 用于反序列化
      * @param list
      */
     @JsonCreator
-    public OrderDetails(List<OrderDetail> list) {
+    public OrderItems(List<OrderItem> list) {
         this.list = Objects.requireNonNullElseGet(list, ArrayList::new);
         validate();
     }
@@ -47,34 +47,34 @@ public class OrderDetails implements Iterable<OrderDetail>, Serializable, Identi
     }
 
     @Override
-    public @NonNull Iterator<OrderDetail> iterator() {
+    public @NonNull Iterator<OrderItem> iterator() {
         return list.iterator();
     }
 
-    public Stream<OrderDetail> toStream() {
+    public Stream<OrderItem> toStream() {
         return list.stream();
     }
 
     @Override
-    public Collection<OrderDetail> getCollection() {
+    public Collection<OrderItem> getCollection() {
         return list;
     }
 
     @Override
-    public Function<OrderDetail, Long> identify() {
-        return OrderDetail::getId;
+    public Function<OrderItem, Long> identify() {
+        return OrderItem::getId;
     }
 
 
     public List<Integer> getProductIds() {
-        return StreamEx.of(list).map(OrderDetail::getProductId).toList();
+        return StreamEx.of(list).map(OrderItem::getProductId).toList();
     }
 
     public int count() {
         return list.size();
     }
 
-    void add(OrderDetail orderDetail) {
-        list.add(orderDetail);
+    void add(OrderItem orderItem) {
+        list.add(orderItem);
     }
 }
