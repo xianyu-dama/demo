@@ -79,8 +79,8 @@ class PlaceOrderUseCaseIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    @DisplayName("sku件数大于1件，需要抛异常")
-    void should_throw_biz_exception_when_sku_quantity_greater_max() {
+    @DisplayName("商品件数大于1件，需要抛异常")
+    void should_throw_biz_exception_when_product_quantity_greater_max() {
         assertThatThrownBy(() -> orderAssembler.toOrder(createPlaceOrderDto(2)))
             .isInstanceOf(IllegalArgumentException.class);
     }
