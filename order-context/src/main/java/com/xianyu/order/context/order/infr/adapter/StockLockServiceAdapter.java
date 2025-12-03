@@ -4,7 +4,7 @@ import com.xianyu.inventory.context.sdk.inventory.api.StockInventoryApiService;
 import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.service.StockLockService;
 import com.xianyu.order.context.order.infr.convertor.OrderConvertor;
-import com.xianyu.order.context.reference.inventory.SkuStockLock;
+import com.xianyu.order.context.reference.inventory.ProductStockLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -24,10 +24,10 @@ public class StockLockServiceAdapter implements StockLockService {
     private final OrderConvertor orderConvertor;
 
     @Override
-    public SkuStockLock lockStock(Order order) {
+    public ProductStockLock lockStock(Order order) {
         // 转成对应的rpc或者内部请求
         var lockStockResult = stockInventoryApiService.lockStock(orderConvertor.toLockStockRequest(order));
-        return SkuStockLock.builder()
+        return ProductStockLock.builder()
                 .locked(lockStockResult.getLocked())
                 .stockLockId(lockStockResult.getStockLockId())
                 .build();

@@ -20,9 +20,9 @@ public class StockInventoryController {
 
     private final StockInventoryAppService stockInventoryAppService;
 
-    @GetMapping("/{skuId}")
-    public StockInventoryDto getStockInventory(@PathVariable Long skuId) {
-        return stockInventoryAppService.getStockInventory(skuId);
+    @GetMapping("/{productId}")
+    public StockInventoryDto getStockInventory(@PathVariable Long productId) {
+        return stockInventoryAppService.getStockInventory(productId);
     }
 
 }

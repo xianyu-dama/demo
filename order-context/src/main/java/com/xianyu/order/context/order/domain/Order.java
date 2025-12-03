@@ -7,7 +7,7 @@ import com.xianyu.order.context.order.domain.value.Extension;
 import com.xianyu.order.context.order.domain.value.FullName;
 import com.xianyu.order.context.order.domain.value.OrderAddress;
 import com.xianyu.order.context.order.domain.value.OrderStatus;
-import com.xianyu.order.context.reference.inventory.SkuStockLock;
+import com.xianyu.order.context.reference.inventory.ProductStockLock;
 import com.xianyu.order.context.reference.parcel.Parcels;
 import com.xianyu.order.context.reference.user.User;
 import com.xianyu.order.context.sdk.order.event.OrderCanceledEvent;
@@ -41,7 +41,7 @@ import org.jspecify.annotations.Nullable;
 @Setter(AccessLevel.PACKAGE)
 public class Order extends BaseAggregation<Order, Long> {
 
-    public static final int PLACE_ORDER_MAX_SKU_QUANTITY = 1;
+    public static final int PLACE_ORDER_MAX_PRODUCT_QUANTITY = 1;
     private final transient Parcels parcels;
     private final transient HasOne<User> user;
     private Long id;
@@ -77,12 +77,12 @@ public class Order extends BaseAggregation<Order, Long> {
         orderAddress = newOrderAddress;
     }
 
-    void lockStock(SkuStockLock skuStockLock) {
-        if (!skuStockLock.locked()) {
+    void lockStock(ProductStockLock productStockLock) {
+        if (!productStockLock.locked()) {
             throw new BizException("库存不足");
         }
         orderItems.forEach(orderDetail -> orderDetail.updateLocked(true));
-        extension = Optional.ofNullable(extension).orElse(Extension.builder().build()).toBuilder().lockId(skuStockLock.stockLockId()).build();
+        extension = Optional.ofNullable(extension).orElse(Extension.builder().build()).toBuilder().lockId(productStockLock.stockLockId()).build();
     }
 
 
@@ -145,9 +145,9 @@ public class Order extends BaseAggregation<Order, Long> {
         return id;
     }
 
-    boolean isSkuQuantityValidate(int placeOrderMaxSkuQuantity) {
+    boolean isProductQuantityValidate(int placeOrderMaxProductQuantity) {
         return orderItems.toStream()
-                .allMatch(od -> od.getQuantity() <= placeOrderMaxSkuQuantity);
+                .allMatch(od -> od.getQuantity() <= placeOrderMaxProductQuantity);
     }
 
     public boolean isCanceled() {

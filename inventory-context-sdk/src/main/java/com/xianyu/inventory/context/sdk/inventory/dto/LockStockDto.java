@@ -31,19 +31,19 @@ public class LockStockDto {
     @NotNull(message = "bizId cannot be null")
     private String bizId;
 
-    @NotEmpty(message = "skus cannot be empty")
-    private List<Sku> skus;
+    @NotEmpty(message = "products cannot be empty")
+    private List<Product> products;
 
     @Jacksonized
     @NoArgsConstructor
     @AllArgsConstructor(staticName = "of")
     @Builder(toBuilder = true)
     @Getter
-    public static class Sku {
+    public static class Product {
 
         @NonNull
-        @NotNull(message = "skuId cannot be null")
-        private Long skuId;
+        @NotNull(message = "productId cannot be null")
+        private Long productId;
 
         @NonNull
         @NotNull(message = "quantity cannot be null")

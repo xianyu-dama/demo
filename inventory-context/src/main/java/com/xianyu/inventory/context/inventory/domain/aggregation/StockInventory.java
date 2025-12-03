@@ -21,7 +21,7 @@ public class StockInventory extends BaseAggregation<StockInventory, Long> {
     /**
      * 商品id
      */
-    private long skuId;
+    private long productId;
 
     /**
      * 库存数量
@@ -38,8 +38,8 @@ public class StockInventory extends BaseAggregation<StockInventory, Long> {
         return id;
     }
 
-    public boolean lock(long skuId, int count) {
-        log.info("lock stock: skuId={}, count={}", skuId, count);
+    public boolean lock(long productId, int count) {
+        log.info("lock stock: productId={}, count={}", productId, count);
         return true;
     }
 } 

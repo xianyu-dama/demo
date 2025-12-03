@@ -4,7 +4,7 @@ import com.xianyu.order.context.order.app.view.OrderDetailView;
 import com.xianyu.order.context.order.app.view.OrderDetailViewContext;
 import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.repository.OrderRepository;
-import com.xianyu.order.context.reference.product.SkuRepository;
+import com.xianyu.order.context.reference.product.ProductRepository;
 import com.xianyu.order.context.sdk.order.api.OrderQueryApiService;
 import com.xianyu.order.context.sdk.order.dto.req.QueryOrderDto;
 import com.xianyu.order.context.sdk.order.dto.rsp.OrderReadOnlyDto;
@@ -22,7 +22,7 @@ public class OrderQueryAppService implements OrderQueryApiService {
 
     private final OrderRepository orderRepository;
     private final OrderQueryService orderQueryService;
-    private final SkuRepository skuRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Page<OrderReadOnlyDto> listForPage(QueryOrderDto queryDto) {
@@ -32,7 +32,7 @@ public class OrderQueryAppService implements OrderQueryApiService {
     public OrderDetailView detail(long orderId) {
         Order order = orderRepository.getInCache(orderId).orElseThrow();
         OrderDetailViewContext context = OrderDetailViewContext.builder()
-                .sku(() -> skuRepository.list(order.getOrderItems().getProductIds()))
+                .product(() -> productRepository.list(order.getOrderItems().getProductIds()))
                 .build();
         return OrderDetailView.builder().order(order).orderDetailViewContext(context).build();
     }

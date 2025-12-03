@@ -2,7 +2,7 @@ package com.xianyu.order.context.order.app.view;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.xianyu.component.exception.BizException;
-import com.xianyu.order.context.reference.product.Sku;
+import com.xianyu.order.context.reference.product.Product;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ public class OrderDetailViewContext {
             30,
             new ThreadFactoryBuilder().setNameFormat("queryBy-order-context-%d").build()
     );
-    private Map<Integer, Sku> productId2SkuInfo = Collections.emptyMap();
+    private Map<Integer, Product> productId2ProductInfo = Collections.emptyMap();
 
     private OrderDetailViewContext() {}
 
@@ -70,15 +70,9 @@ public class OrderDetailViewContext {
             taskList.add(CompletableFuture.runAsync(runnable, EXECUTOR_SERVICE));
         }
 
-        /**
-         * 查询sku
-         *
-         * @param skuList
-         * @return
-         */
-        public OrderVoContextBuilder sku(Supplier<List<Sku>> skuInfoSupplier) {
-            addTask(() -> orderVoContext.productId2SkuInfo = skuInfoSupplier.get().stream()
-                    .collect(Collectors.toMap(Sku::getSkuId, Function.identity())));
+        public OrderVoContextBuilder product(Supplier<List<Product>> productInfoSupplier) {
+            addTask(() -> orderVoContext.productId2ProductInfo = productInfoSupplier.get().stream()
+                    .collect(Collectors.toMap(Product::getProductId, Function.identity())));
             return this;
         }
 

@@ -15,7 +15,7 @@ public class StockInventoryDto {
     /**
      * 商品id
      */
-    private Long skuId;
+    private Long productId;
     
     /**
      * 库存数量

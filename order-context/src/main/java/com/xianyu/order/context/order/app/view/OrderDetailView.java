@@ -6,7 +6,7 @@ import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.value.FullAddressLine;
 import com.xianyu.order.context.order.domain.value.FullName;
 import com.xianyu.order.context.order.domain.value.OrderStatus;
-import com.xianyu.order.context.reference.product.Sku;
+import com.xianyu.order.context.reference.product.Product;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -68,13 +68,13 @@ public class OrderDetailView {
     ///////////////////////////////////////////////////////////////////////////
 
     public List<OrderDetail> getOrderDetails() {
-        Map<Integer, Sku> productId2SkuInfo = orderDetailViewContext.getProductId2SkuInfo();
+        Map<Integer, Product> productId2ProductInfo = orderDetailViewContext.getProductId2ProductInfo();
         return order.getOrderItems().toStream().map(orderDetail -> {
             return OrderDetail.builder()
                     .orderStatus(orderDetail.getOrderStatus())
                     .price(orderDetail.getPrice())
                     .locked(orderDetail.getLocked())
-                    .picUrl(Optional.ofNullable(productId2SkuInfo.get(orderDetail.getProductId())).map(Sku::getPicUrl).orElse(null))
+                    .picUrl(Optional.ofNullable(productId2ProductInfo.get(orderDetail.getProductId())).map(Product::getPicUrl).orElse(null))
                     .build();
         }).toList();
     }

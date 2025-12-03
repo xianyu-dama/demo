@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class ProductRsp {
 
-    private int skuId;
+    private int productId;
     private String name;
     private boolean onSale;
     private int stock;

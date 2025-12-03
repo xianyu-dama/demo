@@ -17,6 +17,6 @@ public class StockInventoryRepositoryAdapter implements StockInventoryRepository
 
     @Override
     public Optional<StockInventory> get(Long id) {
-        return Optional.of(StockInventory.builder().skuId(id).freeNum(100).build());
+        return Optional.of(StockInventory.builder().productId(id).freeNum(100).build());
     }
 } 

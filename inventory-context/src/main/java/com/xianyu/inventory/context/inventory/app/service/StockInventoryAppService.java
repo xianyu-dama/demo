@@ -25,8 +25,8 @@ public class StockInventoryAppService implements StockInventoryApiService {
     private final StockInventoryAssembler stockInventoryAssembler;
 
     @Transactional(readOnly = true)
-    public StockInventoryDto getStockInventory(Long skuId) {
-        return stockInventoryRepository.get(skuId)
+    public StockInventoryDto getStockInventory(Long productId) {
+        return stockInventoryRepository.get(productId)
                 .map(stockInventoryAssembler::toDTO)
                 .orElse(null);
     }

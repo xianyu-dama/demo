@@ -4,17 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-/**
- * <br/>
- * Created on : 2024-06-04 10:04
- * @author xian_yu_da_ma
- */
 @Getter
 @Builder
 @AllArgsConstructor
-public class Sku {
+public class Product {
 
-    private Integer skuId;
+    private Integer productId;
     private Integer availableNum;
     private Boolean onSaleFlag;
     private String name;

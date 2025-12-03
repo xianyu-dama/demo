@@ -3,7 +3,7 @@ package com.xianyu.order.context.order.domain;
 import com.xianyu.base.BaseUnitTest;
 import com.xianyu.order.context.order.domain.value.Extension;
 import com.xianyu.order.context.order.domain.value.OrderStatus;
-import com.xianyu.order.context.reference.inventory.SkuStockLock;
+import com.xianyu.order.context.reference.inventory.ProductStockLock;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,7 @@ class OrderUnitTest extends BaseUnitTest {
             .orderItems(new OrderItems(List.of(od1, od2)))
             .extension(Extension.builder().build())
             .build();
-        order.lockStock(SkuStockLock.builder().locked(true).stockLockId("LOCK123").build());
+        order.lockStock(ProductStockLock.builder().locked(true).stockLockId("LOCK123").build());
 
         OrderItem d1 = order.getOrderItems().toStream().filter(d -> d.getProductId() == 1).findFirst().orElseThrow();
         OrderItem d2 = order.getOrderItems().toStream().filter(d -> d.getProductId() == 2).findFirst().orElseThrow();
@@ -59,7 +59,7 @@ class OrderUnitTest extends BaseUnitTest {
             .build();
 
         assertThrows(com.xianyu.component.exception.BizException.class, () -> {
-            order.lockStock(SkuStockLock.builder().locked(false).stockLockId("LOCK456").build());
+            order.lockStock(ProductStockLock.builder().locked(false).stockLockId("LOCK456").build());
         });
     }
 }

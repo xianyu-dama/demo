@@ -73,12 +73,12 @@ public class OrderConvertor {
     }
 
     public LockStockDto toLockStockRequest(Order order) {
-        List<LockStockDto.Sku> skus = order.getOrderItems().toStream()
-            .map(item -> LockStockDto.Sku.of(Long.valueOf(item.getProductId()), Long.valueOf(item.getQuantity())))
+        List<LockStockDto.Product> products = order.getOrderItems().toStream()
+            .map(item -> LockStockDto.Product.of(Long.valueOf(item.getProductId()), Long.valueOf(item.getQuantity())))
             .toList();
         return LockStockDto.builder()
             .bizId(String.valueOf(order.getOrderId()))
-            .skus(skus)
+            .products(products)
             .build();
     }
 }

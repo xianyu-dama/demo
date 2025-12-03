@@ -13,6 +13,6 @@ import lombok.Data;
 @Builder
 public class ProductReq {
 
-    private List<Integer> skuIds;
+    private List<Integer> productIds;
 
 }

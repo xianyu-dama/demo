@@ -1,7 +1,7 @@
 package com.xianyu.order.context.order.domain;
 
 import com.xianyu.order.context.order.domain.service.StockLockService;
-import com.xianyu.order.context.reference.inventory.SkuStockLock;
+import com.xianyu.order.context.reference.inventory.ProductStockLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,8 @@ public class OrderService {
      * @param order
      */
     void lockStock(Order order) {
-        SkuStockLock skuStockLock = stockLockService.lockStock(order);
-        order.lockStock(skuStockLock);
+        ProductStockLock productStockLock = stockLockService.lockStock(order);
+        order.lockStock(productStockLock);
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.xianyu.order.context.order.domain.service;
 
 import com.xianyu.order.context.order.domain.Order;
-import com.xianyu.order.context.reference.inventory.SkuStockLock;
+import com.xianyu.order.context.reference.inventory.ProductStockLock;
 
 
 /**
@@ -17,6 +17,6 @@ public interface StockLockService {
      * @param order
      * @return
      */
-    SkuStockLock lockStock(Order order);
+    ProductStockLock lockStock(Order order);
 
 }

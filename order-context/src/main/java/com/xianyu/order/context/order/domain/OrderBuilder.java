@@ -56,7 +56,7 @@ public class OrderBuilder extends Order.OrderBuilder<Order, OrderBuilder> {
         Order order = new Order(this);
         builderOrderItems.forEach(order::add);
 
-        boolean isValidate = order.isSkuQuantityValidate(Order.PLACE_ORDER_MAX_SKU_QUANTITY);
+        boolean isValidate = order.isProductQuantityValidate(Order.PLACE_ORDER_MAX_PRODUCT_QUANTITY);
         if (!isValidate) {
             throw new IllegalArgumentException("订单明细数量超过限制");
         }

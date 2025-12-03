@@ -18,7 +18,7 @@ public class StockInventoryAssembler {
         }
         StockInventoryDto dto = new StockInventoryDto();
         dto.setId(stockInventory.getId());
-        dto.setSkuId(stockInventory.getSkuId());
+        dto.setProductId(stockInventory.getProductId());
         dto.setFreeNum(stockInventory.getFreeNum());
         dto.setLockNum(stockInventory.getLockNum());
         return dto;
@@ -30,7 +30,7 @@ public class StockInventoryAssembler {
         }
         return StockInventory.builder()
                 .id(dto.getId())
-                .skuId(dto.getSkuId())
+                .productId(dto.getProductId())
                 .freeNum(dto.getFreeNum())
                 .lockNum(dto.getLockNum())
                 .build();
