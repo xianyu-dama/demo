@@ -9,15 +9,7 @@ import org.apache.commons.lang3.SerializationUtils;
  * !!!!!!!!!!!!!!!!!!!防止聚合根异步更新，如果异步更新，会检查快照是否存在，不存在则直接报错!!!!!!!!!!!!!!!!!!!
  * !!!!!!!!!!!!!!!!!!!事务是线程相关的，保证聚合根在一次事务有效!!!!!!!!!!!!!!!!!!!
  * <p>
- * 2.为了解决的问题：get一次聚合根，只能update一次，update两次会出问题：
- * Order order = orderRepository.get(orderId);
- * order.cancel(xxxx);
- * orderRepository.update(order);
- * <p>
- * // order的缓存对象已经变化了，diff的时候会把脏数据更新（上面改成【已取消】，下面没判断出来改成【未取消】）
- * order.suspend(xxx, xxx);
- * orderRepository.update(order);
- * 注意：缓存聚合根快照（不能声明成static，会导致内存异常）
+ * 2.为了解决的问题：get一次聚合根，只能update一次，update两次会导致脏数据写回数据库
  *
  * @author xian_yu_da_ma
  **/
