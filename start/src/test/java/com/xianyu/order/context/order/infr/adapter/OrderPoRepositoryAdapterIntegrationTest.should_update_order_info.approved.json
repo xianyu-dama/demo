@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "id": 1,
+  "orderStatus": "PAID",
+  "currency": "CNY",
+  "exchangeRate": "1",
+  "shouldPay": "9999",
+  "actualPay": "8888",
+  "orderAddress": {
+    "fullName": {
+      "firstName": "first",
+      "lastName": "last"
+    },
+    "fullAddressLine": {
+      "addressLine1": "line1",
+      "addressLine2": "line2"
+    },
+    "email": "123456@qq.com",
+    "phoneNumber": "13800000000",
+    "country": "CHINA"
+  },
+  "orderItems": {
+    "productIds": [
+      1,
+      2
+    ],
+    "collection": [
+      {
+        "version": 1,
+        "id": 1,
+        "productId": 1,
+        "orderStatus": "WAIT_PAY",
+        "price": "1",
+        "quantity": 1
+      },
+      {
+        "version": 1,
+        "id": 2,
+        "productId": 2,
+        "orderStatus": "WAIT_PAY",
+        "price": "10",
+        "quantity": 1
+      }
+    ],
+    "duplicated": false
+  },
+  "extension": {},
+  "userId": 1,
+  "cancel": false,
+  "orderId": 1,
+  "productIds": [
+    1,
+    2
+  ],
+  "shipped": false,
+  "canceled": false,
+  "parcels": [],
+  "user": {
+    "orThrow": {}
+  },
+  "events": []
+}
