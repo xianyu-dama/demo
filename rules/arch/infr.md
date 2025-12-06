@@ -1,0 +1,13 @@
+# 基础设施层
+- 负责跟外部系统交互，包括：数据库、消息队列、缓存、文件存储等
+- 数据模型统一使用后缀Po，表示persistent object
+- adapter
+  - 适配层对象统一使用后缀Adapter，比如OrderRepositoryAdapter
+- convertor
+  - 负责领域模型和Po的转换
+  - 类名统一以`Convertor`后缀结尾，由Spring管理
+  - 只能包含转换逻辑，不能包含业务逻辑
+- rpc
+  - 外部系统的客户端RPC客户端，比如http、rpc
+- persistence
+  - po：数据模型（持久化对象），类名以`Po`结尾
