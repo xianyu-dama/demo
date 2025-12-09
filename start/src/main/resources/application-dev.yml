@@ -3,25 +3,13 @@ spring:
     banner-mode: off
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:15432/postgres?currentSchema=xianyu-demo
+    url: jdbc:postgresql://localhost:5432/xianyu-demo?currentSchema=public
     username: postgres
-    password: 123456
+    password: Abc123456
   data:
     redis:
       host: localhost
-      port: 16379
-  # 如果连接测试库，sql/docker注释掉
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:sql/data.sql
-      schema-locations: classpath:sql/schema.sql
-  docker:
-    compose:
-      enabled: true
-      file: classpath:compose.yaml
-      skip:
-        in-tests: false
+      port: 6379
 cache:
   caffeine:
     maximumSize: 1000
