@@ -52,7 +52,7 @@
 flowchart TB
 
     %% 图例
-    subgraph Legend [参考COLA的分层结构，实际调整成app和domain都是依赖倒置的]
+    subgraph Legend [参考COLA的分层结构]
         direction TB
 
     %% 节点定义
