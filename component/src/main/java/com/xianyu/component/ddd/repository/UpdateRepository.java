@@ -1,7 +1,7 @@
 package com.xianyu.component.ddd.repository;
 
 import com.xianyu.component.ddd.aggregation.BaseEntity;
-import com.xianyu.component.ddd.aop.UpdateAroundAspect;
+import com.xianyu.component.ddd.aop.UpdateAspect;
 import org.jspecify.annotations.NonNull;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,7 +16,7 @@ public interface UpdateRepository<R extends BaseEntity<I>, I> {
 
     /**
      * 更新聚合根
-     * 默认包含aop增强：校验聚合根是否有快照 ${@link UpdateAroundAspect}
+     * 默认包含aop增强：校验聚合根是否有快照 ${@link UpdateAspect}
      *
      * @param aggregate
      * @return 更新的总行数
