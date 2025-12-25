@@ -5,14 +5,14 @@
 - 购物车结算下单，下单扣减库存，清空购物车
 
 ## 项目信息
-- 技术栈：Java 21、Spring Boot 3、PostgreSQL 14、Redis 6.x、Jimmer + MyBatis、Docker Compose、Maven
+- 技术栈：Java 21、Spring Boot 3、PostgreSQL 14、Redis 6.x、MyBatis-Plus、Docker Compose、Maven
 
 ## 本地启动
 - 本地需要安装docker环境
 - start模块
   - `com.xianyu.Application`
 - 自动化测试
-  - 在命令行执行：`mvn verify`，将运行测试（Jimmer会检查表不存在时会提醒，docker启动时机问题）
+  - 在命令行执行：`mvn verify`，将运行测试
 
 ## 业务模块划分（上下文）
 - 订单上下文（order-context）
@@ -122,10 +122,7 @@ flowchart TB
 
 ## 设计取舍
 
-### 为什么同时集成Jimmer和MyBatis
-* Jimmer的查询组件很好用，但是不想在里面混合原生SQL，有些报表查询的复杂SQL，还是推荐用Mybatis的原生SQL
-
 ### DDD和MVC的性能对比？
 * 我的业务主要以B端为主，可以容忍冗余的SQL更新
-* 如果需要极致的性能，用MVC更好，Jimmer实现极致的性能
+* 如果需要极致的性能，用MVC更好
 * 模块自己决定用哪种分层，控制在包内就好

@@ -34,19 +34,6 @@ redisson:
   threads: 1
   connection-minimum-idle-size: 1
   connection-pool-size: 1
-jimmer:
-  dialect: org.babyfish.jimmer.sql.dialect.PostgresDialect
-  show-sql: true
-  pretty-sql: true
-  database-validation-mode: warning
-  default-batch-size: 1000
-  default-list-batch-size: 1000
-  # ALLOWD: 允许子对象迁移，并尽可能采用数据库本身的UPSERT能力
-  # NOT_ALLOWED: 不允许子对象迁移，以QueryReason.TARGET_NOT_TRANSFERABLE为由发起而外查询加以验证。 如果发生了子对象迁移，抛出异常
-  # AUTO(默认)：当前配置无效，参考优先级更低的配置
-  target-transferable: true
-  # 脱钩delete执行逻辑删除
-  dissociation-logical-delete-enabled: true
 domain:
   event:
     sender:
