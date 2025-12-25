@@ -12,7 +12,7 @@
 - start模块
   - `com.xianyu.Application`
 - 自动化测试
-  - 在命令行执行：`mvn verify`，将运行测试
+  - 在命令行执行：`mvn verify`，将运行测试（Jimmer会检查表不存在时会提醒，docker启动时机问题）
 
 ## 业务模块划分（上下文）
 - 订单上下文（order-context）
