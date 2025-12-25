@@ -52,7 +52,7 @@
 flowchart TB
 
     %% 图例
-    subgraph Legend [参考COLA的分层结构，实际调整app和domain都是依赖倒置的（app和domain都不依赖外部）]
+    subgraph Legend [infr依赖app和domain]
         direction TB
 
     %% 节点定义
