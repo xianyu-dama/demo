@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @AllArgsConstructor
 public class MergedRetryJobContextInterceptor implements RetryJobContextInterceptor {
@@ -27,7 +27,7 @@ public class MergedRetryJobContextInterceptor implements RetryJobContextIntercep
         return null;
     }
 
-    @NotNull
+    @NonNull
     private List<RetryJobContextInterceptor> sortedInterceptors() {
         return interceptors.stream()
                 .sorted(Comparator.comparing(RetryJobContextInterceptor::order))

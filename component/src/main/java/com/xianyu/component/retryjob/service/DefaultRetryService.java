@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
@@ -92,7 +92,7 @@ public class DefaultRetryService implements RetryService, InitializingBean {
         return execute(retryJobHandler, context.getRetryJob());
     }
 
-    @NotNull
+    @NonNull
     private RetryJobContextInterceptor getRetryJonInterceptor() {
         return new MergedRetryJobContextInterceptor(interceptors);
     }

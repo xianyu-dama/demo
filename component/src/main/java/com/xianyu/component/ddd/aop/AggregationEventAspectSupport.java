@@ -4,8 +4,7 @@ import com.xianyu.component.ddd.aggregation.BaseAggregation;
 import com.xianyu.component.ddd.event.DomainEventSupport;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;

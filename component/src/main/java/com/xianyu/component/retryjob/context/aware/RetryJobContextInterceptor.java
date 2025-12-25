@@ -5,7 +5,7 @@ import com.xianyu.component.retryjob.context.RetryJobResult;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * 拦截器
@@ -67,7 +67,7 @@ public interface RetryJobContextInterceptor {
         }
 
         @Override
-        public int compareTo(@NotNull Order o) {
+        public int compareTo(@NonNull Order o) {
             return Integer.compare(value, o.value);
         }
     }

@@ -3,7 +3,7 @@ package com.xianyu.component.utils;
 import com.xianyu.component.helper.SpringHelper;
 import java.lang.reflect.Method;
 import java.util.Objects;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;

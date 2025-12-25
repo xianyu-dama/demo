@@ -1,7 +1,7 @@
 package com.xianyu;
 
 import com.xianyu.base.BaseTest;
-import com.xianyu.config.mybatis.MyBatisConfig;
+import com.xianyu.component.mybatis.MybatisPlusConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource(locations = "classpath:application-addition.properties")
-@SpringJUnitConfig(classes = {MyBatisConfig.class})
+@SpringJUnitConfig(classes = {MybatisPlusConfig.class})
 public abstract class BaseMapperUnitTest extends BaseTest {
 
 }

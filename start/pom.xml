@@ -107,12 +107,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!--cucumber-junit-platform-engine 依赖 jna，导致测试失败-->
         <dependency>
             <groupId>net.java.dev.jna</groupId>

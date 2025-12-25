@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.redisson.api.RRateLimiter;
 import org.redisson.api.RateIntervalUnit;
 import org.redisson.api.RateLimiterConfig;
@@ -40,7 +40,7 @@ public class RetryJobRateLimitInterceptor implements RetryJobContextInterceptor 
         return null;
     }
 
-    @NotNull
+    @NonNull
     private static String limiterName(RetryJob retryJob) {
         return String.format("RETRY_JOB_LIMITER:%s", retryJob.value());
     }
