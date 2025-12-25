@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "id": 1,
+  "orderStatus": "WAIT_PAY",
+  "currency": "CNY",
+  "exchangeRate": "1",
+  "shouldPay": "1",
+  "actualPay": "1",
+  "orderAddress": {
+    "fullName": {
+      "firstName": "firstName",
+      "lastName": "lastName"
+    },
+    "fullAddressLine": {
+      "addressLine1": "addressLine1",
+      "addressLine2": "addressLine2"
+    },
+    "email": "email",
+    "phoneNumber": "phoneNumber",
+    "country": "country"
+  },
+  "orderItems": {
+    "productIds": [
+      1
+    ],
+    "collection": [
+      {
+        "version": 1,
+        "id": 1,
+        "productId": 1,
+        "orderStatus": "WAIT_PAY",
+        "price": "1",
+        "locked": true,
+        "quantity": 1
+      }
+    ],
+    "duplicated": false
+  },
+  "extension": {
+    "shipInsuranceFee": "10",
+    "isFirstOrder": true,
+    "lockId": "1"
+  },
+  "userId": 1,
+  "cancel": false,
+  "orderId": 1,
+  "productIds": [
+    1
+  ],
+  "shipped": false,
+  "canceled": false,
+  "parcels": [],
+  "user": {
+    "orThrow": {}
+  },
+  "events": []
+}
