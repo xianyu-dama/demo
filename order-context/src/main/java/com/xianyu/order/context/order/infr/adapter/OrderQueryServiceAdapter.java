@@ -93,7 +93,7 @@ public class OrderQueryServiceAdapter implements OrderQueryService {
         // 使用 MyBatis-Plus 查询订单
         LambdaQueryWrapper<OrderPo> query = Wrappers.lambdaQuery(OrderPo.class);
         query.in(OrderPo::getOrderId, orderIdList);
-        query.orderByDesc(OrderPo::getOrderId);
+        query.orderByAsc(OrderPo::getOrderId);
         List<OrderPo> orderPos = orderPoMapper.selectList(query);
         
         if (CollectionUtils.isEmpty(orderPos)) {
@@ -134,7 +134,7 @@ public class OrderQueryServiceAdapter implements OrderQueryService {
                 new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageIndex, pageSize);
         LambdaQueryWrapper<OrderPo> query = Wrappers.lambdaQuery(OrderPo.class);
         query.eq(OrderPo::getUserId, userId);
-        query.orderByDesc(OrderPo::getOrderId);
+        query.orderByAsc(OrderPo::getOrderId);
         com.baomidou.mybatisplus.extension.plugins.pagination.Page<OrderPo> poPage = 
                 orderPoMapper.selectPage(page, query);
         
