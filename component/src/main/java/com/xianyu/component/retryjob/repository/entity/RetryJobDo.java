@@ -3,8 +3,10 @@ package com.xianyu.component.retryjob.repository.entity;
 import com.xianyu.component.retryjob.enums.RetryJobStatusEnum;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.util.Assert;
@@ -17,6 +19,8 @@ import org.springframework.util.Assert;
 @Builder(toBuilder = true)
 @Getter
 @FieldNameConstants
+@AllArgsConstructor
+@NoArgsConstructor
 public class RetryJobDo implements Serializable {
 
     /**

@@ -42,16 +42,12 @@
     "lockId": "1"
   },
   "userId": 1,
-  "cancel": false,
-  "orderId": 1,
   "productIds": [
     1
   ],
+  "orderId": 1,
   "shipped": false,
+  "cancel": false,
   "canceled": false,
-  "parcels": [],
-  "user": {
-    "orThrow": {}
-  },
   "events": []
 }

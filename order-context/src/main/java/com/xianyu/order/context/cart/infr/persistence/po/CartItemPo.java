@@ -29,7 +29,7 @@ public class CartItemPo extends BasePo {
 
     private Integer quantity;
 
-    @TableLogic
+    @TableLogic(value = "0", delval = "(extract(epoch FROM clock_timestamp()) * 1000)::bigint")
     private Long deleteTimestamp;
 
 }

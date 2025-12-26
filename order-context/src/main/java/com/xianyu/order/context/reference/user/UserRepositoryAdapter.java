@@ -2,7 +2,6 @@ package com.xianyu.order.context.reference.user;
 
 import java.util.Optional;
 
-import com.xianyu.order.context.order.app.service.OrderQueryService;
 import com.xianyu.order.context.sdk.order.api.OrderQueryApiService;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserRepositoryAdapter implements UserRepository {
 
-    private OrderQueryApiService orderQueryApiService;
+    private final OrderQueryApiService orderQueryApiService;
 
     @Override
     public Optional<User> get(Long id) {
