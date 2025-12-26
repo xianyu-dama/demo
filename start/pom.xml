@@ -114,12 +114,6 @@
             <version>5.13.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
-            <version>5.13.0</version>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>com.approvaltests</groupId>
@@ -154,6 +148,12 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
