@@ -209,4 +209,14 @@ public class OrderQueryServiceAdapter implements OrderQueryService {
     public long count() {
         return orderPoMapper.selectCount(null);
     }
+
+    @Override
+    public List<Long> queryOrderIdsByUserId(Long userId) {
+        LambdaQueryWrapper<OrderPo> query = Wrappers.lambdaQuery(OrderPo.class);
+        query.eq(OrderPo::getUserId, userId);
+        query.select(OrderPo::getOrderId);
+        return orderPoMapper.selectList(query).stream()
+                .map(OrderPo::getOrderId)
+                .toList();
+    }
 }

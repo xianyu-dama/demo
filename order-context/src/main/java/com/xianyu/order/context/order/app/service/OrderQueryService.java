@@ -20,4 +20,6 @@ public interface OrderQueryService {
     int countByUserId(long userId);
 
     long count();
+
+    List<Long> queryOrderIdsByUserId(Long userId);
 }

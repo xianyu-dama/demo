@@ -1,4 +1,4 @@
-package com.xianyu.component.web.annotation;
+package com.xianyu.component.web;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

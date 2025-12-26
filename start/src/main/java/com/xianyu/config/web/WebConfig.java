@@ -1,9 +1,11 @@
 package com.xianyu.config.web;
 
-import com.xianyu.component.web.intercepter.LogRequestParamIntercepter;
-import com.xianyu.component.web.intercepter.MyResponseBodyHandleReturnValue;
-import jakarta.annotation.Resource;
 import java.util.List;
+
+import com.xianyu.component.web.MyResponseBodyHandleReturnValue;
+import com.xianyu.config.web.intercepter.LogRequestParamIntercepter;
+import jakarta.annotation.Resource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;

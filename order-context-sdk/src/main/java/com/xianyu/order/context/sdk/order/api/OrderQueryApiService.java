@@ -1,5 +1,7 @@
 package com.xianyu.order.context.sdk.order.api;
 
+import java.util.List;
+
 import com.xianyu.order.context.sdk.order.dto.req.QueryOrderDto;
 import com.xianyu.order.context.sdk.order.dto.rsp.OrderReadOnlyDto;
 import org.springframework.data.domain.Page;
@@ -14,4 +16,10 @@ public interface OrderQueryApiService {
      */
     Page<OrderReadOnlyDto> listForPage(QueryOrderDto queryDto);
 
+    /**
+     * 根据用户查询订单号
+     * @param id
+     * @return
+     */
+    List<Long> queryOrderIdsByUserId(Long id);
 }

@@ -29,6 +29,11 @@ public class OrderQueryAppService implements OrderQueryApiService {
         return orderQueryService.listForPage(queryDto.orderIds(), queryDto.email(), queryDto.pageIndex(), queryDto.pageSize());
     }
 
+    @Override
+    public List<Long> queryOrderIdsByUserId(Long id) {
+        return orderQueryService.queryOrderIdsByUserId(id);
+    }
+
     public OrderDetailView detail(long orderId) {
         Order order = orderRepository.getInCache(orderId).orElseThrow();
         OrderDetailViewContext context = OrderDetailViewContext.builder()

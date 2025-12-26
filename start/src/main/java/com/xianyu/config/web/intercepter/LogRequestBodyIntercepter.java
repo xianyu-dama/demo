@@ -1,12 +1,14 @@
-package com.xianyu.component.web.intercepter;
+package com.xianyu.config.web.intercepter;
 
-import jakarta.servlet.Servlet;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+
+import jakarta.servlet.Servlet;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.MethodParameter;
