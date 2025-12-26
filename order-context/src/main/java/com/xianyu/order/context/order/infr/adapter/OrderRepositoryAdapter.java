@@ -1,7 +1,11 @@
 package com.xianyu.order.context.order.infr.adapter;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Optional;
+
+import com.xianyu.component.utils.DiffUtils;
+import com.xianyu.component.utils.json.JsonUtils;
 import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.repository.OrderRepository;
 import com.xianyu.order.context.order.infr.convertor.OrderConvertor;
@@ -12,9 +16,12 @@ import com.xianyu.order.context.order.infr.persistence.po.OrderDetailPo;
 import com.xianyu.order.context.order.infr.persistence.po.OrderPo;
 import com.xianyu.order.context.order.infr.persistence.service.OrderDetailPoRepository;
 import com.xianyu.order.context.order.infr.persistence.service.OrderPoRepository;
-import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author xian_yu_da_ma
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = {"order"})
 public class OrderRepositoryAdapter implements OrderRepository {
 
     private final OrderPoMapper orderPoMapper;
@@ -47,37 +56,47 @@ public class OrderRepositoryAdapter implements OrderRepository {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public Long add(Order order) {
         OrderPo orderPo = OrderPoConvertor.toOrderPo(order);
-        orderPoMapper.insert(orderPo);
-
-        List<OrderDetailPo> orderDetailPos = OrderPoConvertor.toOrderDetailPos(order.getId(), order.getOrderItems());
-        for (OrderDetailPo orderDetailPo : orderDetailPos) {
-            orderDetailPoMapper.insert(orderDetailPo);
-        }
-
-        return order.getId();
+        orderPoRepository.save(orderPo);
+        orderDetailPoRepository.saveBatch(OrderPoConvertor.toOrderDetailPos(orderPo.getOrderId(), order.getOrderItems()), 200);
+        return orderPo.getOrderId();
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(key = "#order.id")
     public int update(Order order) {
+        ImmutablePair<List<OrderDetailPo>, List<OrderDetailPo>> leftToAddAndRightToUpdate = diffOrderDetailPos(order);
         OrderPo orderPo = OrderPoConvertor.toOrderPo(order);
-        int result = orderPoMapper.updateById(orderPo);
+        updateByVersion(orderPo);
+        saveAndUpdate(leftToAddAndRightToUpdate.getLeft(), leftToAddAndRightToUpdate.getRight());
+        return 1;
+    }
 
-        // 删除旧的订单明细
-        LambdaQueryWrapper<OrderDetailPo> deleteQuery = Wrappers.lambdaQuery(OrderDetailPo.class);
-        deleteQuery.eq(OrderDetailPo::getOrderId, order.getId());
-        orderDetailPoMapper.delete(deleteQuery);
-
-        // 插入新的订单明细
-        List<OrderDetailPo> orderDetailPos = OrderPoConvertor.toOrderDetailPos(order.getId(), order.getOrderItems());
-        for (OrderDetailPo orderDetailPo : orderDetailPos) {
-            orderDetailPoMapper.insert(orderDetailPo);
+    private void updateByVersion(OrderPo orderPo) {
+        boolean success = orderPoRepository.updateById(orderPo);
+        // 只有订单才需要判断版本号
+        if (!success) {
+            log.info("根据版本号更新失败 {}", JsonUtils.toJSONString(orderPo));
+            throw new ConcurrentModificationException("订单信息发生变化, 修改失败");
         }
+    }
 
-        return result;
+    private void saveAndUpdate(List<OrderDetailPo> addOrderDetailPos, List<OrderDetailPo> updateOrderDetailPos) {
+        orderDetailPoRepository.saveBatch(addOrderDetailPos, 200);
+        orderDetailPoRepository.updateBatchById(updateOrderDetailPos, 200);
+    }
+
+    /**
+     * diff出需要新增和更新的订单明细
+     * @param order
+     * @return
+     */
+    private static ImmutablePair<List<OrderDetailPo>, List<OrderDetailPo>> diffOrderDetailPos(Order order) {
+        Order snapshot = order.snapshot();
+        List<OrderDetailPo> currentOrderDetailPos = OrderPoConvertor.toOrderDetailPos(order.getId(), order.getOrderItems());
+        List<OrderDetailPo> snapshotOrderDetailPos = OrderPoConvertor.toOrderDetailPos(snapshot.getId(), snapshot.getOrderItems());
+        return DiffUtils.diff(OrderDetailPo.class, snapshotOrderDetailPos, currentOrderDetailPos);
     }
 
     @Override
