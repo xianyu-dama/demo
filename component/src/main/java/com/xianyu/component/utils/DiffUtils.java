@@ -8,9 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
 import org.javers.core.diff.Change;
@@ -20,7 +19,6 @@ import org.javers.core.diff.changetype.NewObject;
 import org.javers.core.diff.changetype.ObjectRemoved;
 import org.javers.core.diff.changetype.ValueChange;
 import org.javers.core.diff.custom.CustomValueComparator;
-
 import org.springframework.util.Assert;
 
 @Slf4j
@@ -116,21 +114,21 @@ public class DiffUtils {
      *
      * @param oldList
      * @param newList
-     * @return left=新增集合(addList),right=更新集合(updateList)
+     * @return left=新增集合(addList),middle=更新集合(updateList),right=删除集合(removeList)
      */
-    public static <T extends Serializable> ImmutablePair<List<T>, List<T>> diff(Class<T> entityClass, List<T> oldList, List<T> newList) {
+    public static <T extends Serializable> ImmutableTriple<List<T>, List<T>, List<T>> diff(Class<T> entityClass, List<T> oldList, List<T> newList) {
         List<T> addList = new ArrayList<>();
         List<T> updateList = new ArrayList<>();
-        DiffUtils.listChangeFunction(
+        List<T> removeList = new ArrayList<>();
+        listChangeFunction(
                 oldList,
                 newList,
                 entityClass,
                 addList::addAll,
                 updateList::addAll,
-                removeList -> {
-                }
+            removeList::addAll
         );
-        return ImmutablePair.of(addList, updateList);
+        return ImmutableTriple.of(addList, updateList, removeList);
     }
 
     private static class CustomFixedEqualBigDecimalComparator implements CustomValueComparator<BigDecimal> {
