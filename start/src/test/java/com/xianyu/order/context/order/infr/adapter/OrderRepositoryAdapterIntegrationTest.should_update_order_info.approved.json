@@ -1,11 +1,11 @@
 {
   "version": 1,
   "id": 1,
-  "orderStatus": "CANCELED",
+  "orderStatus": "PAID",
   "currency": "CNY",
   "exchangeRate": "1",
-  "shouldPay": "88",
-  "actualPay": "88",
+  "shouldPay": "8888",
+  "actualPay": "8888",
   "orderAddress": {
     "fullName": {
       "firstName": "first",
@@ -20,16 +20,12 @@
     "country": "CHINA"
   },
   "orderItems": {
-    "productIds": [
-      1,
-      2
-    ],
     "collection": [
       {
         "version": 1,
         "id": 1,
         "productId": 1,
-        "orderStatus": "CANCELED",
+        "orderStatus": "WAIT_PAY",
         "price": "1",
         "quantity": 1
       },
@@ -37,26 +33,26 @@
         "version": 1,
         "id": 2,
         "productId": 2,
-        "orderStatus": "CANCELED",
+        "orderStatus": "WAIT_PAY",
         "price": "10",
         "quantity": 1
       }
+    ],
+    "productIds": [
+      1,
+      2
     ],
     "duplicated": false
   },
   "extension": {},
   "userId": 1,
-  "cancel": true,
-  "orderId": 1,
   "productIds": [
     1,
     2
   ],
   "shipped": false,
-  "canceled": true,
-  "parcels": [],
-  "user": {
-    "orThrow": {}
-  },
+  "orderId": 1,
+  "canceled": false,
+  "cancel": false,
   "events": []
 }

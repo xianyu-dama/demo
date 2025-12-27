@@ -19,7 +19,8 @@ public class SnapshotAspect {
      * @param pjp
      * @param returnVal
      */
-    @AfterReturning(pointcut = "@annotation(com.xianyu.component.ddd.aop.annotation.Snapshot)",
+    @AfterReturning(pointcut = "@annotation(com.xianyu.component.ddd.aop.annotation.Snapshot)"
+        + "|| execution(* com.xianyu.component.ddd.repository.GetWithLockRepository+.getWithLockOrThrow(..))",
         returning = "returnVal")
     public void handleRequestMethod(JoinPoint pjp, Object returnVal) {
         if (returnVal instanceof BaseAggregation<?, ?> aggregate) {
