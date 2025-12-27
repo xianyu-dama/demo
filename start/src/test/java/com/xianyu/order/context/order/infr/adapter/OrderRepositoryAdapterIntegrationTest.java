@@ -8,7 +8,6 @@ import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.repository.OrderRepository;
 import com.xianyu.order.context.order.infr.persistence.po.OrderPo;
 import jakarta.annotation.Resource;
-import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -22,6 +21,7 @@ import org.mockito.MockedStatic;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.time.Instant.ofEpochMilli;
 
@@ -56,11 +56,24 @@ class OrderRepositoryAdapterIntegrationTest extends BaseIntegrationTest {
     @DisplayName("测试聚合根查询")
     void should_update_order_info() {
         long orderId = 1L;
+
         Order order = orderRepository.getWithLockOrThrow(orderId);
-        order.pay(new BigDecimal("8888"), new BigDecimal("8888"));
+        order.cancel();
         orderRepository.update(order);
+
         Order newOrder = orderRepository.get(orderId).orElseThrow();
         assertJSON(newOrder);
+    }
+
+    // 必须开启事务
+    @Transactional
+    public void cancel(long orderId) {
+        // 查询加锁（锁主单即可）select * from order where id = ? for update
+        // 加载聚合根，并设置快照，用于更新时对比
+        Order order = orderRepository.getWithLockOrThrow(orderId);
+        order.cancel();
+        // 所有对象都通过diff对比，只更新变化的记录
+        orderRepository.update(order);
     }
 
     @Test
