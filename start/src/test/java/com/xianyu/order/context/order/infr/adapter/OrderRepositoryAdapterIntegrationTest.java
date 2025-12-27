@@ -72,7 +72,7 @@ class OrderRepositoryAdapterIntegrationTest extends BaseIntegrationTest {
         // 加载聚合根，并设置快照，用于更新时对比
         Order order = orderRepository.getWithLockOrThrow(orderId);
         order.cancel();
-        // 所有对象都通过diff对比，只更新变化的记录
+        // 所有PO对象都通过diff对比，只更新变化的记录
         orderRepository.update(order);
     }
 
