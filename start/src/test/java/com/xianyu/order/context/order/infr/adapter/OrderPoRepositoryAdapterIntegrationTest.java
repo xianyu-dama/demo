@@ -62,10 +62,9 @@ class OrderPoRepositoryAdapterIntegrationTest extends BaseIntegrationTest {
         Order order = orderRepository.getWithLockOrThrow(orderId);
         order.pay(new BigDecimal("8888"), new BigDecimal("9999"));
 
-        System.out.println("开始更新聚合根");
         int updateCount = orderRepository.update(order);
-        assertThat(updateCount).isEqualTo(1);
-        System.out.println("结束更新聚合根");
+        // 订单和订单item都全量更新
+        assertThat(updateCount).isEqualTo(3);
 
         Order newOrder = orderRepository.get(orderId).orElseThrow();
         assertJSON(newOrder);

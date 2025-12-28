@@ -24,7 +24,7 @@ public interface OrderItemPo extends BasePo {
     long id();
 
     @Key
-    Integer productId();
+    int productId();
 
     OrderStatus orderStatus();
 

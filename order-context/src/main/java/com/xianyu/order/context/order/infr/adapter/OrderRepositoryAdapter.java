@@ -1,6 +1,5 @@
 package com.xianyu.order.context.order.infr.adapter;
 
-import com.xianyu.component.ddd.aop.annotation.Snapshot;
 import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.repository.OrderRepository;
 import com.xianyu.order.context.order.infr.convertor.OrderConvertor;
@@ -52,11 +51,10 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
     @CacheEvict(key = "#order.id")
     public int update(@NonNull Order order) {
-        OrderPo updateOrderPo = OrderPoConvertor.toUpdateOrderPo(order);
+        OrderPo updateOrderPo = OrderPoConvertor.toOrderPo(order);
         return jSqlClient.saveCommand(updateOrderPo)
             .setMode(SaveMode.UPDATE_ONLY)
-            // 看你的场景需要update、merge、replace
-            .setAssociatedModeAll(AssociatedSaveMode.UPDATE)
+            .setAssociatedModeAll(AssociatedSaveMode.MERGE)
             .execute()
             .getTotalAffectedRowCount();
     }
@@ -79,12 +77,11 @@ public class OrderRepositoryAdapter implements OrderRepository {
     }
 
     @Override
-    @Snapshot
     public Order getWithLockOrThrow(Long id) {
         return jSqlClient.createQuery(OrderPoRepository.ORDER_PO_TABLE)
             .where(OrderPoRepository.ORDER_PO_TABLE.orderId().eq(id))
             .select(OrderPoRepository.ORDER_AGGREGATION_SELECTION)
-            .forUpdate() // 添加 FOR UPDATE 子句，实现行级锁
+            .forUpdate()
             .fetchOptional()
             .map(orderConvertor::toOrder)
             .orElseThrow();
