@@ -8,6 +8,7 @@ import com.xianyu.order.context.order.domain.Order;
 import com.xianyu.order.context.order.domain.repository.OrderRepository;
 import com.xianyu.order.context.order.infr.persistence.po.OrderPo;
 import jakarta.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -56,11 +57,9 @@ class OrderRepositoryAdapterIntegrationTest extends BaseIntegrationTest {
     @DisplayName("测试聚合根查询")
     void should_update_order_info() {
         long orderId = 1L;
-
         Order order = orderRepository.getWithLockOrThrow(orderId);
-        order.cancel();
+        order.pay(new BigDecimal("8888"), new BigDecimal("8888"));
         orderRepository.update(order);
-
         Order newOrder = orderRepository.get(orderId).orElseThrow();
         assertJSON(newOrder);
     }
