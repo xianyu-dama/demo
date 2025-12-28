@@ -34,7 +34,7 @@ public abstract class BaseAggregation<R extends BaseAggregation<R, I>, I> extend
      */
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private transient Snapshot<R, I> snapshot;
+    private transient Snapshot<R, I>  snapshot;
 
     protected BaseAggregation() {
     }
@@ -60,7 +60,7 @@ public abstract class BaseAggregation<R extends BaseAggregation<R, I>, I> extend
      * @return
      */
     public R snapshot() {
-        if (Objects.isNull(snapshot)) {
+        if (Objects.isNull(snapshot) || Objects.isNull(snapshot.get())) {
             throw new IllegalArgumentException("快照不存在，在查询聚合的方法上添加注解--@Snapshot");
         }
         return snapshot.get();
@@ -74,6 +74,7 @@ public abstract class BaseAggregation<R extends BaseAggregation<R, I>, I> extend
             return;
         }
         snapshot.remove();
+        snapshot = null;
     }
 
     /**
@@ -82,7 +83,7 @@ public abstract class BaseAggregation<R extends BaseAggregation<R, I>, I> extend
      * @throws IllegalVersionException
      */
     public void checkForVersion() throws IllegalVersionException {
-        if (Objects.isNull(snapshot)) {
+        if (Objects.isNull(snapshot) || Objects.isNull(snapshot.get())) {
             return;
         }
         R currentSnapshot = snapshot.get();
